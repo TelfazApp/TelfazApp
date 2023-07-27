@@ -1,4 +1,3 @@
-
 // Get a reference to the Firestore database
 const db = firebase.firestore();
 
