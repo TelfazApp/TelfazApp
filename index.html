@@ -210,36 +210,47 @@ button:hover {
 
       return code;
     }
-
     const signInForm = document.getElementById('signin-form');
-    const DashBoardform = document.getElementById('DashBoard-form');
-  const loginStatus = document.getElementById('login-status');
+const DashBoardform = document.getElementById('DashBoard-form');
+const loginStatus = document.getElementById('login-status');
 
-  DashBoardform.style.display = 'none';
-  loginStatus.style.display = 'none';
-  signInForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+DashBoardform.style.display = 'none';
+loginStatus.style.display = 'none';
+signInForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+  if (email === 'u7i3p0@gmail.com') {
+    if (password === 'MjeedB52') {
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
+
         loginStatus.textContent = 'User signed in successfully.';
         loginStatus.style.display = 'none';
         DashBoardform.style.display = 'block';
         signInForm.style.display = 'none';
-
-      })
-      .catch((error) => {
-        loginStatus.textContent = 'حدث خطا في تسجيل الدخول : ' + error.message;
+      } catch (error) {
+        loginStatus.textContent = 'An error occurred during login: ' + error.message;
         loginStatus.style.display = 'block';
         DashBoardform.style.display = 'none';
         signInForm.style.display = 'block';
-        
-      });
-  });
+      }
+    } else {
+      loginStatus.textContent = 'Invalid password.';
+      loginStatus.style.display = 'block';
+      DashBoardform.style.display = 'none';
+    }
+  } else {
+    loginStatus.textContent = 'Email is not the administrator\'s email.';
+    loginStatus.style.display = 'block';
+    DashBoardform.style.display = 'none';
+  }
+});
+
+
 
     async function generateCodes() {
       const numberOfCodes = parseInt(document.getElementById("numOfCodes").value, 10);
