@@ -30,7 +30,7 @@ input[type=password], input[type=email] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
-  display: inline-block;
+  display: inline-flex;
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
@@ -286,13 +286,13 @@ button:hover {
 </script>
 </head>
 <body dir="rtl">
-  <li id="login-status"></li>
+ 
       <!-- Login form -->
       <form id="signin-form">
         <input type="email" id="email" placeholder="Email">
         <input type="password" id="password" placeholder="Password">
         <button type="submit">Sign In</button>
-    
+        <li id="login-status"></li>
       </form>
   
       
