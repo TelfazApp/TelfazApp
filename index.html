@@ -91,6 +91,7 @@ button:hover {
       display: inline-block;
       margin: 20px;
       cursor: pointer;
+      
       border-radius: 4px;
     }
 
@@ -234,6 +235,7 @@ button:hover {
         loginStatus.style.display = 'block';
         DashBoardform.style.display = 'none';
         signInForm.style.display = 'block';
+        
       });
   });
 
@@ -275,36 +277,37 @@ button:hover {
 
     }
 
-    document.getElementById('Gene').addEventListener('click', () => {
-      generateCodes();
-      document.getElementById("output").innerHTML = `جاري توليد الاكواد...`;
-    });
+    document.getElementById('Gene').addEventListener('click', (e) => {
+    e.preventDefault(); // Prevent form submission
 
-    document.getElementById('stopGene').addEventListener('click', () => {
-      stopGenerating = true;
-    });
+    generateCodes();
+    document.getElementById("output").innerHTML = `جاري توليد الاكواد...`;
+  });
+
+    document.getElementById('stopGene').addEventListener('click', (e) => {
+    e.preventDefault(); // Prevent form submission
+
+    stopGenerating = true;
+  });
 </script>
 </head>
 <body dir="rtl">
- 
+  <div id="codeContainer">
       <!-- Login form -->
       <form id="signin-form">
         <input type="email" id="email" placeholder="Email">
         <input type="password" id="password" placeholder="Password">
         <button type="submit">Sign In</button>
-        <li id="login-status"></li>
-      </form>
-  
       
-      <div id="codeContainer">
+      </form>
+      <li id="login-status"></li>
+      
+  
       <form id="DashBoard-form">
-        <input type="number" id="numOfCodes" min="1" value="10" /> -->
+        <input type="number" id="numOfCodes" min="1" value="10" />
   <button id="Gene">Generate Codes</button>
   <button id="stopGene">Stop Generating</button>
   <p id="output"></p>
-  
-  <!-- Add a container for the texts above and below the list of generated codes -->
-
     <p id="Label">سوف يتم حفظ الاكواد التاليه في قاعده البيانات انتظر حتى تطلع تم كلمه الحفظ</p>
     <ul id="generatedCodesList"></ul>
   </form>
