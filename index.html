@@ -9,29 +9,49 @@
 <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase.js"></script>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #202a32;
-      margin: 0;
-      padding: 0;
-      display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #202a32;
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-    #container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
+#codeContainer {
+  text-align: center;
+}
 
-    #codeContainer {
-    text-align: center;
-  }
+/* Combine input[type=text] and input[type=email] styles */
+input[type=password], input[type=email] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+
+
+
 
     #Gene {
       font-size: 16px;
@@ -74,6 +94,19 @@
       border-radius: 4px;
     }
 
+    
+    #login-status {
+      
+      margin: 20px;
+      padding: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #ff0000;
+      margin-bottom: 10px;
+      background-color: #342929;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+    }
     
     #output {
       
@@ -119,7 +152,8 @@
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
       import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
       import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
-  
+      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+
       // Your web app's Firebase configuration
       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
       const firebaseConfig = {
@@ -137,6 +171,8 @@
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
       const database = getDatabase(app);
+      const auth = getAuth(app);
+
       let stopGenerating = false;
 
       async function checkCodeExists(code) {
@@ -171,6 +207,35 @@
 
       return code;
     }
+
+    const signInForm = document.getElementById('signin-form');
+    const DashBoardform = document.getElementById('DashBoard-form');
+  const loginStatus = document.getElementById('login-status');
+
+  DashBoardform.style.display = 'none';
+  loginStatus.style.display = 'none';
+  signInForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        loginStatus.textContent = 'User signed in successfully.';
+        loginStatus.style.display = 'none';
+        DashBoardform.style.display = 'block';
+        signInForm.style.display = 'none';
+
+      })
+      .catch((error) => {
+        loginStatus.textContent = 'حدث خطا في تسجيل الدخول : ' + error.message;
+        loginStatus.style.display = 'block';
+        DashBoardform.style.display = 'none';
+        signInForm.style.display = 'block';
+      });
+  });
 
     async function generateCodes() {
       const numberOfCodes = parseInt(document.getElementById("numOfCodes").value, 10);
@@ -221,8 +286,19 @@
 </script>
 </head>
 <body dir="rtl">
-  <div id="codeContainer">
-  <input type="number" id="numOfCodes" min="1" value="10" />
+  <li id="login-status"></li>
+      <!-- Login form -->
+      <form id="signin-form">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button type="submit">Sign In</button>
+    
+      </form>
+  
+      
+      <div id="codeContainer">
+      <form id="DashBoard-form">
+        <input type="number" id="numOfCodes" min="1" value="10" /> -->
   <button id="Gene">Generate Codes</button>
   <button id="stopGene">Stop Generating</button>
   <p id="output"></p>
@@ -231,7 +307,8 @@
 
     <p id="Label">سوف يتم حفظ الاكواد التاليه في قاعده البيانات انتظر حتى تطلع تم كلمه الحفظ</p>
     <ul id="generatedCodesList"></ul>
-    
+  </form>
+
   </div>
 </body>
 </html>
