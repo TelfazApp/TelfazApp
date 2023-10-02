@@ -1,6 +1,6 @@
 {
-    "URLHOME": "text2",
-    "URLSERIES": "text2",
-    "URLMOVIES": "text2",
-    "URLSEARCH": "text2"
+    "URLHOME": "text0",
+    "URLSERIES": "text1",
+    "URLMOVIES": "text3",
+    "URLSEARCH": "text4"
 }
