@@ -1,6 +1,7 @@
 {
-    "URLHOME": "ddwszsasasa",
-    "URLSERIES": "text1",
-    "URLMOVIES": "text3",
-    "URLSEARCH": "text4"
+    "Update_Date": "Monday. October 2, 2023",
+    "url_faselhd_top_movies": "https://web1.faselhd.press:2096/all-movies",
+    "url_faselhd_all_movies": "https://web1.faselhd.press:2096/all-movies",
+    "url_faselhd_series": "https://web1.faselhd.press:2096/series",
+    "url_faselhd_best_series_in_month": "https://web1.faselhd.press:2096/best_series_in_month"
 }
